@@ -31,13 +31,21 @@ public class Target : MonoBehaviour
     }
     void OnMouseDown()
     {
-        Destroy(gameObject);
-        Instantiate(explosionPartical,transform.position, explosionPartical.transform.rotation);
-        gameManager.UpdateScore(pointValue);
+        if (!gameManager.isGameOver)
+        {
+            Destroy(gameObject);
+            Instantiate(explosionPartical, transform.position, explosionPartical.transform.rotation);
+            gameManager.UpdateScore(pointValue);
+        }
+
     }
     void OnTriggerEnter(Collider other)
     {
         Destroy(gameObject);
+        if (gameObject.CompareTag("Good") && gameManager.isGameOver == false)
+        {
+            gameManager.UpdateScore(-10);
+        }
     }
     Vector3 RandomForce()
     {
