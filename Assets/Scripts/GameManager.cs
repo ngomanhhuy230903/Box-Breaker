@@ -13,13 +13,15 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameoverText;
     public Button restartButton;
     public GameObject sceneTitle;
+    private AudioSource playderAudio;
+    public AudioClip backgroundSound;
     private float spawnRate = 2f;
     public bool isGameOver = false;
     private int score;
     // Start is called before the first frame update
     void Start()
     {
-
+        playderAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -49,6 +51,7 @@ public class GameManager : MonoBehaviour
     {
         gameoverText.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        playderAudio.Pause();
         isGameOver = true;
     }
     public void RestartGame()
@@ -63,5 +66,6 @@ public class GameManager : MonoBehaviour
         StartCoroutine(SpawnTarget());
         UpdateScore(0);
         sceneTitle.gameObject.SetActive(false);
+        playderAudio.Play();
     }
 }
